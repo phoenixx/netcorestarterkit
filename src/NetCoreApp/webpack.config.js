@@ -1,4 +1,5 @@
 ﻿const isDevBuild = process.argv.indexOf("--env.prod") < 0;
+console.log("DEV BUILD: " + isDevBuild);
 const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
@@ -49,10 +50,10 @@ const clientBundleConfig = merge(config(),
     output: { path: path.join(__dirname, clientBundleOutputDir) },
     plugins: [
         //new ExtractTextPlugin('site.css'),
-        //new webpack.DllReferencePlugin({
-        //    context: __dirname,
-        //    manifest: require('./wwwroot/dist/vendor-manifest.json')
-        //}),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./wwwroot/dist/vendor-manifest.json')
+        }),
         copyWebpackPlugin([
             {
                 from: 'Client/images',
