@@ -1,4 +1,4 @@
-﻿const isDevBuild = process.argv.indexOf("--end.prod") < 0;
+﻿const isDevBuild = process.argv.indexOf("--env.prod") < 0;
 const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
