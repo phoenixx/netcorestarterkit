@@ -1,5 +1,5 @@
 {
-  "name": "vendor_740d73fedddd8e00dda6",
+  "name": "vendor_159eeee8d4134d7a84c0",
   "content": {
     "./node_modules/fbjs/lib/invariant.js": {
       "id": 0,
@@ -174,7 +174,7 @@
       "id": 34,
       "meta": {}
     },
-    "./node_modules/node-libs-browser/node_modules/process/browser.js": {
+    "./node_modules/process/browser.js": {
       "id": 35,
       "meta": {}
     },

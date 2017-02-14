@@ -1,5 +1,11 @@
+@using NetCoreApp.Extensions
+@model NetCoreApp.Models.User.UserModel
+
 <div id="app"></div>
 
 @section scripts {
+    <script>
+        window.__PRELOADED_STATE__ = @Html.Raw(Model.ToJson());
+    </script>
     <script src="~/dist/main-client.js" asp-append-version="true"></script>
 }

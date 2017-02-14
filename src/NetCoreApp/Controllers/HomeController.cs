@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NetCoreApp.Models.User;
 
 namespace NetCoreApp.Controllers
 {
@@ -6,7 +7,10 @@ namespace NetCoreApp.Controllers
     {
         public IActionResult Index()
         {
-            return View("~/Views/Home/Index.cshtml");
+            //get user's locale (if logged in), otherwise default...
+            var userModel = new UserModel() { Locale = "en-GB" };
+
+            return View("~/Views/Home/Index.cshtml", userModel);
         }
     }
 }

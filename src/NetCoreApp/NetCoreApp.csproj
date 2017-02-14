@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="Client\images\" />
     <Folder Include="Config\" />
+    <Folder Include="Controllers\User\" />
     <Folder Include="node_modules\" />
     <Folder Include="wwwroot\dist\">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -27,6 +28,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0-msbuild3-final" />
+    <PackageReference Include="newtonsoft.json" Version="9.0.1" />
   </ItemGroup>
   <ItemGroup>
       <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
