@@ -4,13 +4,18 @@ namespace NetCoreApp.Models.Sample
 {
     public class SampleItem
     {
+        private static readonly Random Random;
+
+        static SampleItem()
+        {
+            Random = new Random((int)DateTime.Now.Ticks);
+        }
+
         public SampleItem()
         {
-            var rng = new Random();
-
             Date = DateTimeOffset.Now;
-            Text = Guid.NewGuid().ToString("N");
-            Number = rng.Next(1, 10000);
+            Text = Guid.NewGuid().ToString();
+            Number = Random.Next();
         }
 
         public DateTimeOffset Date { get; }
