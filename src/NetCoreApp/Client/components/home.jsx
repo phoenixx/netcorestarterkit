@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import SampleList from './list';
 
 class Home extends Component {
     constructor(props) {
@@ -6,7 +7,9 @@ class Home extends Component {
     }
     render() {
         return (
-            <div>Hello World from home component</div>
+            <div>
+                <SampleList limit={10}/>
+            </div>
         );
     }
 }
