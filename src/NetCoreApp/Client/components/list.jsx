@@ -16,6 +16,7 @@ class SampleList extends Component {
         this._updateListItems = this._updateListItems.bind(this);
         this._addOnePerSecond = this._addOnePerSecond.bind(this);
         this._stopAdding = this._stopAdding.bind(this);
+        this._removeItem = this._removeItem.bind(this);
     }
     _handleChange(event) {
         this.setState({ limit: event.target.value });
@@ -76,25 +77,49 @@ class SampleList extends Component {
                 });
             });
     }
+    _removeItem(item) {
+        this.setState({
+            listItems: this.state.listItems.filter((li) => {
+                return li.text !== item.text;
+            })
+        });
+    }
     componentDidMount() {
         this._updateListItems();
     }
     render() {
         return (
-            <div>
-                <input type="number" value={this.state.limit} onChange={this._handleChange} />
+            <div className="mdl-cell mdl-cell--12-col">
+                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input type="number" value={this.state.limit} onChange={this._handleChange} className="mdl-textfield__input" id="count" />
+                    <label className="mdl-textfield__label" htmlFor="count">Items</label>
+                </div>
                 &nbsp;
-                <button type="button" onClick={this._updateListItems} className="mdl-button mdl-js-button mdl-button--raised">Update</button>
+                <button type="button" onClick={this._updateListItems} className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    <i className="material-icons">autorenew</i>
+                    Update
+                </button>
                 &nbsp;
-                <button type="button" onClick={this._addOnePerSecond} className="mdl-button mdl-js-button mdl-button--raised">Add one per second</button>
+                <button type="button" onClick={this._addOnePerSecond} className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    <i className="material-icons">exposure_plus_1</i>
+                    Add one per second
+                </button>
                 &nbsp;
-                {this.state.adding ? (<button type="button" onClick={this._stopAdding} className="mdl-button mdl-js-button mdl-button--raised">Stop</button>) : (null)}
-
+                {this.state.adding
+                    ? (
+                        <button type="button" onClick={this._stopAdding} className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                            <i className="material-icons">stop</i>
+                            Stop
+                        </button>)
+                    : (null)}
+                <div className="mdl-cell mdl-cell--12-col">
+                    Showing {this.state.listItems.length} items:
+                </div>
                 {this.state.loading ? ("loading") : (
                     <ol>
                         {this.state.listItems.map((li) => {
                             return (
-                                <ListItem {...li} key={li.text} />
+                                <ListItem {...li} key={li.text} removeItem={() => this._removeItem(li)} />
                             );
                         })}
                     </ol>    
