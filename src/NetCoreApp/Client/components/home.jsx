@@ -4,8 +4,6 @@ import Header from '../components/header';
 import ReactCssTransitionGroup from 'react-addons-css-transition-group';
 import Container from '../containers/mainContainer';
 
-import '../styles/sass/styles.scss';
-
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -24,6 +22,12 @@ class Home extends Component {
                 </Grid>
             </div>
         );
+    }
+}
+
+Home.defaultProps = {
+    location: {
+        pathname: ""
     }
 }
 
