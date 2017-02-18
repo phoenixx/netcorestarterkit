@@ -1,6 +1,10 @@
 ﻿import React, { Component } from 'react';
-import SampleList from './list';
 import { Grid } from './grid';
+import Header from '../components/header';
+import ReactCssTransitionGroup from 'react-addons-css-transition-group';
+import Container from '../containers/mainContainer';
+
+import '../styles/sass/styles.scss';
 
 class Home extends Component {
     constructor(props) {
@@ -8,9 +12,17 @@ class Home extends Component {
     }
     render() {
         return (
-            <Grid>
-                <SampleList limit={10}/>
-            </Grid>
+            <div>
+                <Header/>
+                <Grid>
+                    <ReactCssTransitionGroup transitionName="appear"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={500}
+                        component={Container}>
+                        {React.cloneElement(this.props.children, { key: this.props.location.pathname })}
+                    </ReactCssTransitionGroup>
+                </Grid>
+            </div>
         );
     }
 }

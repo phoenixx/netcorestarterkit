@@ -129,4 +129,8 @@ class SampleList extends Component {
     }
 }
 
+SampleList.defaultProps = {
+    limit: 10
+}
+
 export default SampleList;

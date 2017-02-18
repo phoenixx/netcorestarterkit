@@ -5,6 +5,7 @@ const webpack = require("webpack");
 const merge = require("webpack-merge");
 const autoprefixer = require("autoprefixer");
 const copyWebpackPlugin = require("copy-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const config = () => ({
     resolve: { extensions: ['.js', '.jsx'] },
@@ -43,13 +44,16 @@ const clientBundleConfig = merge(config(),
             {
                 test: /\.scss$/,
                 include: [path.resolve(__dirname, './Client/styles/sass')],
-                loaders: ['style-loader', 'css-loader', 'postcss', 'sass-loader']
+                loader: ExtractTextPlugin.extract({
+                    fallbackLoader: "style-loader",
+                    loader: "css-loader!sass-loader"
+                })
             }
         ]
     },
     output: { path: path.join(__dirname, clientBundleOutputDir) },
     plugins: [
-        //new ExtractTextPlugin('site.css'),
+        new ExtractTextPlugin('site.css'),
         new webpack.DllReferencePlugin({
             context: __dirname,
             manifest: require('./wwwroot/dist/vendor-manifest.json')
