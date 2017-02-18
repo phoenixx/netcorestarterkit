@@ -29,5 +29,25 @@ namespace NetCoreApp.Controllers.Sample
             
             return Json(result);
         }
+
+        [Route("sample/todo")]
+        public IActionResult GetTodo()
+        {
+            var result = new List<TodoItem>()
+            {
+                new TodoItem()
+                {
+                    Complete = false,
+                    Description = "Get cheese"
+                },
+                new TodoItem()
+                {
+                    Complete = true,
+                    Description = "Get milk"
+                }
+            };
+
+            return Json(result);
+        }
     }
 }

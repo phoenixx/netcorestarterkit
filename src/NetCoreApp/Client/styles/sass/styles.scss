@@ -1,8 +1,4 @@
-﻿.body {
-    background-color: forestgreen;
-}
-
-.appear-enter {
+﻿.appear-enter {
     transition-duration: .7s;
     transition-property: opacity;
     transition-timing-function: ease-out;
@@ -15,4 +11,8 @@
 
 .appear-leave {
     opacity: 0;
+}
+
+.strike {
+    text-decoration: line-through;
 }

@@ -45,15 +45,15 @@ const clientBundleConfig = merge(config(),
                 test: /\.scss$/,
                 include: [path.resolve(__dirname, './Client/styles/sass')],
                 loader: ExtractTextPlugin.extract({
-                    fallbackLoader: "style-loader",
-                    loader: "css-loader!sass-loader"
+                    fallback: "style-loader",
+                    use: "css-loader!sass-loader"
                 })
             }
         ]
     },
     output: { path: path.join(__dirname, clientBundleOutputDir) },
     plugins: [
-        new ExtractTextPlugin('site.css'),
+        new ExtractTextPlugin('site.min.css'),
         new webpack.DllReferencePlugin({
             context: __dirname,
             manifest: require('./wwwroot/dist/vendor-manifest.json')
