@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Client\images\" />
+    <Folder Include="Client\__tests__\coverage\" />
     <Folder Include="Config\" />
     <Folder Include="Controllers\User\" />
     <Folder Include="node_modules\" />
