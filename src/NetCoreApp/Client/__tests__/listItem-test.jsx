@@ -18,14 +18,14 @@ describe("List item", function () {
         function () {
             const itemUnderTest = listItem.text();
             console.log(`Item under test: ${itemUnderTest}`);
-            expect(itemUnderTest).to.have.string(expectedText);
+            expect(itemUnderTest).to.contain(expectedText);
         });
 
     it("contains formatted currency",
         function () {
             const itemUnderTest = listItem.text();
             console.log(`Item under test: ${itemUnderTest}`);
-            expect(itemUnderTest).to.have.string("£7.35");
+            expect(itemUnderTest).to.contain("£7.35");
         });
 
     it("contains formatted date",
@@ -33,6 +33,6 @@ describe("List item", function () {
             //see http://stackoverflow.com/questions/33656197/javascript-substring-check-using-indexof-or-search-on-a-date-string-with-forward
             const itemUnderTest = listItem.text().toLocaleString().replace(/\u200E/g, "");
             console.log(`Item under test: ${itemUnderTest}`);
-            expect(itemUnderTest).to.have.string("24/12/2017");
+            expect(itemUnderTest).to.contain("24/12/2017");
         });
 });
