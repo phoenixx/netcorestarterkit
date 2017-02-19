@@ -1,9 +1,9 @@
 ﻿import React, { Component } from 'react';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import { IntlProvider } from 'react-intl';
 import Home from '../components/Home';
 import SampleList from '../components/list';
-import Todo from '../components/Todo';
-import { IntlProvider } from 'react-intl';
+import Todo from '../components/todo';
 
 class RouteComponent extends Component {
     constructor(props) {
