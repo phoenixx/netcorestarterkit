@@ -2,10 +2,17 @@
 module.exports = function (config) {
     config.set({
         basePath: './Client',
-        browsers: ['Chrome'],
+        browsers: ['Chrome', 'IE', 'Edge'],
         singleRun: true, //switch to enable debug
         frameworks: ['jasmine'],
-        reporters: ['progress'],
+        reporters: ['progress', 'summary'],
+        summaryReporter: {
+            // 'failed', 'skipped' or 'all'
+            show: 'all',
+            // Limit the spec label to this length
+            specLength: 50,
+            overviewColumn: true
+        },
         colors: true,
         autowatch: true,
         files: [
@@ -35,7 +42,10 @@ module.exports = function (config) {
             'karma-webpack',
             'karma-jasmine',
             'karma-sourcemap-loader',
-            'karma-chrome-launcher'//,
+            'karma-chrome-launcher',
+            'karma-summary-reporter',
+            'karma-ie-launcher',
+            'karma-edge-launcher'//,
             //'karma-phantomjs-launcher'
         ],
         webpackMiddleware: {
