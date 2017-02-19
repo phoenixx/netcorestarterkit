@@ -4,7 +4,7 @@ import ListItem from '../components/listItem';
 import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-enzyme-test-helper';
 
-describe("List item", function () {
+describe("<ListItem />", () => {
 
     let listItem;
     const expectedText = "somerandomtext";
@@ -15,21 +15,21 @@ describe("List item", function () {
     });
 
     it("contains specified text",
-        function () {
+        () => {
             const itemUnderTest = listItem.text();
             console.log(`Item under test: ${itemUnderTest}`);
             expect(itemUnderTest).to.contain(expectedText);
         });
 
     it("contains formatted currency",
-        function () {
+        () => {
             const itemUnderTest = listItem.text();
             console.log(`Item under test: ${itemUnderTest}`);
             expect(itemUnderTest).to.contain("£7.35");
         });
 
     it("contains formatted date",
-        function () {
+        () => {
             //see http://stackoverflow.com/questions/33656197/javascript-substring-check-using-indexof-or-search-on-a-date-string-with-forward
             const itemUnderTest = listItem.text().toLocaleString().replace(/\u200E/g, "");
             console.log(`Item under test: ${itemUnderTest}`);
