@@ -2,7 +2,7 @@
 module.exports = function (config) {
     config.set({
         basePath: './Client',
-        browsers: ['Chrome', 'IE', 'Edge'],
+        browsers: ['Chrome', 'IE', 'Edge', 'Firefox'],
         singleRun: true, //switch to enable debug
         frameworks: ['jasmine'],
         reporters: ['progress', 'summary'],
@@ -45,7 +45,8 @@ module.exports = function (config) {
             'karma-chrome-launcher',
             'karma-summary-reporter',
             'karma-ie-launcher',
-            'karma-edge-launcher'//,
+            'karma-edge-launcher',
+            'karma-firefox-launcher'//,
             //'karma-phantomjs-launcher'
         ],
         webpackMiddleware: {
