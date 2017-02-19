@@ -17,6 +17,12 @@ I have only tested this with the following software/environments:
 
 ## Get Started
 
+Before getting started, you need to ensure that the karma-cli is installed globally:
+
+`npm install -g karma-cli`
+
+This will enable you to run `karma start` to run the unit tests.
+
 Here will be some instructions for getting started or whatever. In the meantime, just run using Visual Studio.
 
 
