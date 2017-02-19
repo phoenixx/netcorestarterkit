@@ -1,12 +1,12 @@
 ﻿import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import ListItem from '../components/listItem';
-import chai from 'chai'
-import chaiEnzyme from 'chai-enzyme'
+//import chai from 'chai'
+//import chaiEnzyme from 'chai-enzyme'
 import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-enzyme-test-helper';
 
-chai.use(chaiEnzyme());
+//chai.use(chaiEnzyme());
 
 describe("List item", function () {
     it("contains specified text",
