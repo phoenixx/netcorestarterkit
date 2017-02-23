@@ -6,7 +6,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const config = {
-    resolve: { extensions: ['.js'] },
+    resolve: { 
+        extensions: ['.js'],
+        alias: {
+            //see https://vuejs.org/v2/guide/installation.html#Standalone-vs-Runtime-only-Build
+            'vue$':'vue/dist/vue.common.js' 
+        }
+    },
     module: {
         loaders: [
             { test: /\.json$/, loader: require.resolve('json-loader') },
@@ -15,9 +21,10 @@ const config = {
     },
     entry: {
         vendor: [
-            'react',
-            'react-dom',
-            'react-router'
+            'vue'
+            //'react',
+            //'react-dom',
+            //'react-router'
             //additional frameworks/libs here...=>
         ]
     },

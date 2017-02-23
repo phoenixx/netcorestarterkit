@@ -7,18 +7,33 @@ const autoprefixer = require("autoprefixer");
 const copyWebpackPlugin = require("copy-webpack-plugin");
 
 const config = () => ({
-    resolve: { extensions: ['.js', '.jsx'] },
+    resolve: { 
+        extensions: ['.js'],
+        alias: {
+            'vue$':'vue/dist/vue.common.js'
+        }
+    },
     output: {
         filename: '[name].js',
         publicPath: '/dist/'
     },
     module: {
-        loaders: [
+        rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.vue?$/,
                 include: /Client/,
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        'scss': 'vue-style-loader!css-loader!sass-loader',
+                        'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                    }
+                }
+            }, 
+            {
+                test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /(node_modules|bower_components)/
+                exclude: /node_modules/ 
             }
         ]
     }
@@ -30,11 +45,11 @@ const clientBundleConfig = merge(config(),
     entry: {
         'main-client': [
             //main client app entry point
-            './Client/index.jsx'
+            './Client/index.js'
         ]
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
                 loader: 'url-loader',
