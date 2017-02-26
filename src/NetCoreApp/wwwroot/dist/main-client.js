@@ -107,6 +107,7 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
 
 exports.default = {
 
@@ -115,6 +116,12 @@ exports.default = {
         return {
             msg: 'Yo, this is vue'
         };
+    },
+
+    methods: {
+        updateTitle: function updateTitle(event) {
+            this.msg = event.target.value;
+        }
     }
 };
 
@@ -288,7 +295,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "vapp"
     }
-  }, [_c('h1', [_vm._v(_vm._s(_vm.msg))])])
+  }, [_c('h1', [_vm._v(_vm._s(_vm.msg))]), _vm._v(" "), _c('p', [_c('input', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "keyup": function($event) {
+        if (_vm._k($event.keyCode, "enter", 13)) { return; }
+        _vm.updateTitle($event)
+      }
+    }
+  })])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
