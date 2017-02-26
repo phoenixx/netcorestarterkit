@@ -6,17 +6,17 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const config = {
-    resolve: { 
+    resolve: {
         extensions: ['.js'],
         alias: {
             //see https://vuejs.org/v2/guide/installation.html#Standalone-vs-Runtime-only-Build
-            'vue$':'vue/dist/vue.common.js' 
+            'vue$': 'vue/dist/vue.common.js'
         }
     },
     module: {
         loaders: [
             { test: /\.json$/, loader: require.resolve('json-loader') },
-            {test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, loader: 'url-loader?limit=25000'}
+            { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, loader: 'url-loader?limit=25000' }
         ]
     },
     entry: {
@@ -46,25 +46,25 @@ const config = {
 
 const extractCSS = new ExtractTextPlugin('vendor.css');
 const clientBundleConfig = merge(config,
-{
-    output: { path: path.join(__dirname, 'wwwroot', 'dist') },
-    module: {
-        loaders: [
-            { test: /\.css(\?|$)/, loader: extractCSS.extract(['css-loader']) }
-        ]
-    },
-    plugins: [
-        extractCSS,
-        new webpack.DllPlugin({
-            path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
-            name: '[name]_[hash]'
-        })
-    ].concat(isDevBuild
-        ? []
-        : [
-            new webpack.optimize.OccurrenceOrderPlugin(),
-            new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
-        ])
-});
+    {
+        output: { path: path.join(__dirname, 'wwwroot', 'dist') },
+        module: {
+            loaders: [
+                { test: /\.css(\?|$)/, loader: extractCSS.extract(['css-loader']) }
+            ]
+        },
+        plugins: [
+            extractCSS,
+            new webpack.DllPlugin({
+                path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
+                name: '[name]_[hash]'
+            })
+        ].concat(isDevBuild
+            ? []
+            : [
+                new webpack.optimize.OccurrenceOrderPlugin(),
+                new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
+            ])
+    });
 
 module.exports = [clientBundleConfig];

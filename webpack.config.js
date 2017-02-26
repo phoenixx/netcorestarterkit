@@ -7,15 +7,15 @@ const autoprefixer = require("autoprefixer");
 const copyWebpackPlugin = require("copy-webpack-plugin");
 
 const config = () => ({
-    resolve: { 
+    resolve: {
         extensions: ['.js'],
         alias: {
-            'vue$':'vue/dist/vue.common.js'
+            'vue$': 'vue/dist/vue.common.js'
         }
     },
     output: {
         filename: '[name].js',
-        publicPath: './wwwroot/dist/'
+        publicPath: '/dist/'
     },
     module: {
         rules: [
@@ -29,11 +29,11 @@ const config = () => ({
                         'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
                     }
                 }
-            }, 
+            },
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/ 
+                exclude: /node_modules/
             }
         ]
     }
@@ -41,52 +41,52 @@ const config = () => ({
 
 const clientBundleOutputDir = './wwwroot/dist';
 const clientBundleConfig = merge(config(),
-{
-    entry: {
-        'main-client': [
-            //main client app entry point
-            './Client/index.js'
-        ]
-    },
-    module: {
-        rules: [
-            {
-                test: /\.(png|jpg|jpeg|gif|svg)$/,
-                loader: 'url-loader',
-                query: { limit: 25000 }
-            },
-            {
-                test: /\.scss$/,
-                include: [path.resolve(__dirname, './Client/styles/sass')],
-                loaders: ['style-loader', 'css-loader', 'postcss', 'sass-loader']
-            }
-        ]
-    },
-    output: { path: path.join(__dirname, clientBundleOutputDir) },
-    plugins: [
-        //new ExtractTextPlugin('site.css'),
-        new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require('./wwwroot/dist/vendor-manifest.json')
-        }),
-        copyWebpackPlugin([
-            {
-                from: 'Client/images',
-                to: 'images'
-            }
-        ])
-    ].concat(
-        isDevBuild
-            ? [
-                new webpack.SourceMapDevToolPlugin({
-                    filename: '[file].map',
-                    moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]')
-                })
+    {
+        entry: {
+            'main-client': [
+                //main client app entry point
+                './Client/index.js'
             ]
-            : [
-                new webpack.optimize.OccurrenceOrderPlugin(),
-                new webpack.optimize.UglifyJsPlugin({compress: { warnings: false}})
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.(png|jpg|jpeg|gif|svg)$/,
+                    loader: 'url-loader',
+                    query: { limit: 25000 }
+                },
+                {
+                    test: /\.scss$/,
+                    include: [path.resolve(__dirname, './Client/styles/sass')],
+                    loaders: ['style-loader', 'css-loader', 'postcss', 'sass-loader']
+                }
+            ]
+        },
+        output: { path: path.join(__dirname, clientBundleOutputDir) },
+        plugins: [
+            //new ExtractTextPlugin('site.css'),
+            new webpack.DllReferencePlugin({
+                context: __dirname,
+                manifest: require('./wwwroot/dist/vendor-manifest.json')
+            }),
+            copyWebpackPlugin([
+                {
+                    from: 'Client/images',
+                    to: 'images'
+                }
             ])
+        ].concat(
+            isDevBuild
+                ? [
+                    new webpack.SourceMapDevToolPlugin({
+                        filename: '[file].map',
+                        moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]')
+                    })
+                ]
+                : [
+                    new webpack.optimize.OccurrenceOrderPlugin(),
+                    new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } })
+                ])
     });
 
 module.exports = [clientBundleConfig];
