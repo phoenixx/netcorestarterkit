@@ -1,7 +1,10 @@
 <template>
     <div id="vapp">
         <h1>{{msg}}</h1>
-        <p><input @keyup.enter="updateTitle" type="text"/></p>
+        <p>
+            <input @keyup.enter="updateTitle" type="text"/>
+            <button type="button" @click="showAlert('yo')">click me!</button>
+        </p>
     </div>
 </template>
 
@@ -17,12 +20,15 @@ export default {
     methods: {
         updateTitle: function(event) {
             this.msg = event.target.value;
+        },
+        showAlert: function(msg) {
+            alert(msg);
         }
     }
 }
 </script>
 <style lang="scss">
-#app {
+#vapp {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
