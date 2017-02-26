@@ -5,15 +5,15 @@
     <PreBuildEvent></PreBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Client\components\" />
-    <Folder Include="Client\images\" />
-    <Folder Include="Client\routes\" />
-    <Folder Include="Config\" />
-    <Folder Include="node_modules\" />
-    <Folder Include="wwwroot\dist\">
+    <Folder Include="src\NetCoreApp\Client\components\" />
+    <Folder Include="src\NetCoreApp\Client\images\" />
+    <Folder Include="src\NetCoreApp\Client\routes\" />
+    <Folder Include="src\NetCoreApp\Config\" />
+    <Folder Include="src\NetCoreApp\node_modules\" />
+    <Folder Include="src\NetCoreApp\wwwroot\dist\">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Folder>
-    <Folder Include="Views\">
+    <Folder Include="src\NetCoreApp\Views\">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Folder>
  </ItemGroup>
