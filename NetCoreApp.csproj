@@ -4,9 +4,9 @@
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
     <PreBuildEvent></PreBuildEvent>
   </PropertyGroup>
-  <ItemGroup>
+  <!--<ItemGroup>
     <Content Include="wwwroot\dist\vendor-manifest.json" />
-  </ItemGroup>
+  </ItemGroup>-->
   <ItemGroup>
     <Folder Include="Client\components\" />
     <Folder Include="Client\routes\" />
