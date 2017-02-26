@@ -3,7 +3,7 @@
         <h1>{{msg}}</h1>
         <p>
             <input @keyup.enter="updateTitle" type="text"/>
-            <button type="button" @click="showAlert('yo')">click me!</button>
+            <button type="button" @click="showAlert('yo')">click me!!</button>
         </p>
     </div>
 </template>
