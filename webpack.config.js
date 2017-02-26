@@ -15,7 +15,7 @@ const config = () => ({
     },
     output: {
         filename: '[name].js',
-        publicPath: '/dist/'
+        publicPath: './wwwroot/dist/'
     },
     module: {
         rules: [

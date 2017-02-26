@@ -5,15 +5,13 @@
     <PreBuildEvent></PreBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\NetCoreApp\Client\components\" />
-    <Folder Include="src\NetCoreApp\Client\images\" />
-    <Folder Include="src\NetCoreApp\Client\routes\" />
-    <Folder Include="src\NetCoreApp\Config\" />
-    <Folder Include="src\NetCoreApp\node_modules\" />
-    <Folder Include="src\NetCoreApp\wwwroot\dist\">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Folder>
-    <Folder Include="src\NetCoreApp\Views\">
+    <Content Include="wwwroot\dist\vendor-manifest.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Client\components\" />
+    <Folder Include="Client\routes\" />
+    <Folder Include="Config\" />
+    <Folder Include="wwwroot\dist\">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Folder>
  </ItemGroup>
@@ -32,6 +30,26 @@
   </ItemGroup>
   <ItemGroup>
       <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\dist\images\sample.jpg" />
+    <None Include="wwwroot\dist\main-client.js" />
+    <None Include="wwwroot\dist\main-client.js.map" />
+    <None Include="wwwroot\dist\vendor.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Properties\launchSettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Home\Index.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\_Layout.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\_ViewStart.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <!--<Target Name="PreCompile" BeforeTargets="Build">
     <Exec Command="preCompile.bat" />
