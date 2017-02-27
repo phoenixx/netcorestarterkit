@@ -17,7 +17,7 @@
 <script>
 import TodoItem from './components/todoitem.vue';
 import uuidV4 from 'uuid/v4'
-
+import capitalize from 'lodash/capitalize';
 const App = {
     name: 'app',
     data() {
@@ -92,7 +92,7 @@ const App = {
             } else {
                 this.items.push({
                     id: uuidV4(),
-                    text: this.itemText,
+                    text: capitalize(this.itemText),
                     complete: false
                 });
                 this.itemText = '';
