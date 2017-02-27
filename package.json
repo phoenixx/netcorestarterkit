@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.15.3",
+    "uuid": "^3.0.1",
     "vue": "^2.1.10"
   },
   "devDependencies": {

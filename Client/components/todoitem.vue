@@ -1,7 +1,7 @@
 <template>
-    <li>
+    <li :class="{complete: isComplete}">
         <label>
-            <input type="checkbox" v-model="complete"/>
+            <input type="checkbox" v-model="isComplete"/>
             {{text}}
         </label>
     </li>
@@ -9,7 +9,17 @@
 <script>
 const TodoItem = {
     name: 'todoitem',
-    props: ['text', 'complete']
+    props: ['id', 'text', 'complete', 'onComplete'],
+    data() {
+        return {
+            isComplete: this.complete
+        }
+    },
+    watch: {
+         isComplete: function(val) {
+             this.$emit('onComplete');
+         }
+     }
 }
 
 export default TodoItem;
@@ -17,6 +27,10 @@ export default TodoItem;
 <style type="sass" scoped>
 ul, li {
     list-style-type:none;
+    color: red;
+}
+li.complete {
+    text-decoration: line-through;
     color: green;
 }
 </style>
