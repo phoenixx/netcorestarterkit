@@ -28,7 +28,13 @@ export default TodoItem;
 ul, li {
     list-style-type:none;
     color: red;
+    cursor:pointer;
 }
+
+label {
+    cursor:pointer;
+}
+
 li.complete {
     text-decoration: line-through;
     color: green;

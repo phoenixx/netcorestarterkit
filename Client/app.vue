@@ -3,7 +3,7 @@
         <h1>{{msg}}</h1>
         <h2>{{completeItems}} / {{items.length}} completed ({{percentComplete}}%{{completeMessage}})</h2>
         <p>
-            <input type="text" v-model="itemText"/>
+            <input type="text" v-model="itemText" v-on:keyup.enter="addItem()"/>
             <button type="button" @click="addItem()" :disabled="addDisabled">Add item</button>
         </p>
         <p>
@@ -50,7 +50,6 @@ const App = {
     },
     computed: {
         addDisabled: function() {
-            console.log("addDisabled");
             return this.itemText === null || this.itemText.length === 0;
         },
         completeItems: function() {
@@ -76,19 +75,18 @@ const App = {
         }
     },
     methods: {
-        updateTitle: function(event) {
-            this.msg = event.target.value;
-        },
-        showAlert: function(msg) {
-            alert(msg);
-        },
         markComplete: function(item) {
             let thisItem = this.items.filter((i) => {
                 return i.id === item.id;
             });
-            thisItem[0].complete = !thisItem[0].complete;
+            if (thisItem.length !== 1) {
+                console.warn("Nowt found.");
+            } else {
+                thisItem[0].complete = !thisItem[0].complete;
+            }
         },
         addItem: function() {
+            if (this.addDisabled) return;
             if (!this.itemText || this.itemText.length === 0) {
                 alert("nope");
             } else {
@@ -99,7 +97,6 @@ const App = {
                 });
                 this.itemText = '';
             }
-            
         }
     }
 }
