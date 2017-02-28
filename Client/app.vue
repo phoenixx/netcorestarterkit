@@ -25,8 +25,8 @@
                 </button>
             </div>
             <p>
-            <draggable :list="items">
-                <transition-group name="todolist">
+            <draggable :list="items" :options="dragOptions" element="div">
+                <!--<transition-group name="todolist">-->
                     <div v-for="item in items" :key="item.id" class="todolist-item">
                     <todo-item 
                         :id="item.id"
@@ -37,7 +37,7 @@
                         v-on:removeItem="removeItem(item)"
                         v-on:changeItemText="changeItemText"></todo-item>
                     </div>
-                </transition-group>
+                <!--</transition-group>-->
             </draggable>
             </p>
         </div>
@@ -76,6 +76,12 @@ const App = {
             });
     },
     computed: {
+        dragOptions () {
+            return {
+                animation: 100,
+                ghostClass: 'ghost'
+            }
+        },
         addDisabled: function() {
             return this.itemText === null || this.itemText.length === 0;
         },
@@ -146,6 +152,12 @@ const App = {
                     this.itemText = '';
                 }
             }
+        },
+        onStart: function(i, j) {
+            console.log("start", i, j);
+        },
+        onEnd: function(i, j) {
+            console.log("end", i, j);
         }
     }
 }
@@ -169,4 +181,10 @@ export default App;
 .todolist-item {
   transition: all 0.6s;
 }
+
+.ghost {
+  opacity: .5;
+  background: #FF9800;
+}
+
 </style>
