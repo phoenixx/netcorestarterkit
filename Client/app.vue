@@ -26,8 +26,7 @@
             </div>
             <p>
             <draggable :list="items" :options="dragOptions" element="div">
-                <!--<transition-group name="todolist">-->
-                    <div v-for="item in items" :key="item.id" class="todolist-item">
+                <div v-for="item in items" :key="item.id" class="todolist-item">
                     <todo-item 
                         :id="item.id"
                         :text="item.text"
@@ -35,9 +34,9 @@
                         v-on:toggleComplete="markComplete(item)"
                         v-on:onComplete="markComplete(item)"
                         v-on:removeItem="removeItem(item)"
-                        v-on:changeItemText="changeItemText"></todo-item>
-                    </div>
-                <!--</transition-group>-->
+                        v-on:changeItemText="changeItemText">
+                    </todo-item>
+                </div>
             </draggable>
             </p>
         </div>
