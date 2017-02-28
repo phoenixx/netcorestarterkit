@@ -1,5 +1,5 @@
 <template>
-    <li>
+    
         <div class="todo" :class="{complete: complete}">
             <div class="todo--label">
                 <span v-if="!editing" @click="toggleEdit">
@@ -17,7 +17,7 @@
                 <button type="button" class="btn btn-warning btn-xs" @click="toggleItem" :disabled="complete === false || editing === true"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;Not done</button>
             </div>
         </div>
-    </li>
+    
 </template>
 <script>
 const TodoItem = {
@@ -57,17 +57,12 @@ const TodoItem = {
 export default TodoItem;
 </script>
 <style type="sass" scoped>
-ul, li {
-    list-style-type:none;
-    margin-top: 8px;
-}
-
 .todo {
     width: 400px;
     border: solid 1px #CFD8DC;
     padding: 10px;
     /*border-radius: 8px;*/
-    margin: 0 auto;
+    margin: 10px auto;
     min-height: 80px;
 }
 

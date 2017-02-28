@@ -25,7 +25,8 @@
                 </button>
             </div>
             <p>
-                <ul v-for="item in items" :key="item.id">
+                <draggable :list="items">
+                    <div v-for="item in items" :key="item.id">
                     <todo-item 
                         :id="item.id"
                         :text="item.text"
@@ -34,7 +35,8 @@
                         v-on:onComplete="markComplete(item)"
                         v-on:removeItem="removeItem(item)"
                         v-on:changeItemText="changeItemText"></todo-item>
-                </ul>
+                    </div>
+                </draggable>
             </p>
         </div>
     </div>
@@ -45,6 +47,7 @@ import TodoItem from './components/todoitem.vue';
 import uuidV4 from 'uuid/v4'
 import capitalize from 'lodash/capitalize';
 import fetch from 'isomorphic-fetch';
+import draggable from 'vuedraggable';
 
 const App = {
     name: 'app',
@@ -54,6 +57,10 @@ const App = {
             itemText: '',
             items: []
         }
+    },
+    components: {
+        draggable,
+        TodoItem
     },
     mounted: function() {
         const url = "/todos";
