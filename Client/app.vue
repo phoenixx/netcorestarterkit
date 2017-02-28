@@ -25,8 +25,9 @@
                 </button>
             </div>
             <p>
-                <draggable :list="items">
-                    <div v-for="item in items" :key="item.id">
+            <draggable :list="items">
+                <transition-group name="todolist">
+                    <div v-for="item in items" :key="item.id" class="todolist-item">
                     <todo-item 
                         :id="item.id"
                         :text="item.text"
@@ -36,7 +37,8 @@
                         v-on:removeItem="removeItem(item)"
                         v-on:changeItemText="changeItemText"></todo-item>
                     </div>
-                </draggable>
+                </transition-group>
+            </draggable>
             </p>
         </div>
     </div>
@@ -162,5 +164,9 @@ export default App;
 }
 .controls {
     padding: 10px;
+}
+
+.todolist-item {
+  transition: all 0.6s;
 }
 </style>

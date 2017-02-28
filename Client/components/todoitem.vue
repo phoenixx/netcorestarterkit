@@ -45,13 +45,7 @@ const TodoItem = {
             this.$emit('changeItemText', {id: this.id, text: this.itemText});
             this.toggleEdit();
         }
-        
-     }//,
-    // watch: {
-    //      isComplete: function(val) {
-    //          this.$emit('onComplete');
-    //      }
-    //  }
+    }
 }
 
 export default TodoItem;
@@ -61,9 +55,9 @@ export default TodoItem;
     width: 400px;
     border: solid 1px #CFD8DC;
     padding: 10px;
-    /*border-radius: 8px;*/
     margin: 10px auto;
     min-height: 80px;
+    background-color: #F5F5F5;
 }
 
 .todo.complete {
