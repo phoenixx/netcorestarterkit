@@ -1,10 +1,22 @@
 <template>
-    <li :class="{complete: isComplete}">
-        <label>
-            <input type="checkbox" v-model="isComplete"/>
-            {{text}}
-        </label>
-        <button type="button" @click="removeItem">Remove</button>
+    <li>
+        <div class="todo" :class="{complete: complete}">
+            <div class="todo--label">
+                <span v-if="!editing" @click="toggleEdit">
+                {{text}}
+                </span>
+                <span v-if="editing">
+                    <input type="text" class="form-control form-control--narrow" @change="editItemText" v-model="itemText">
+                </span>
+                <span class="todo--remove">
+                    <button type="button" class="btn btn-danger btn-xs" @click="removeItem"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;Remove</button>
+                </span>
+            </div>
+            <div class="todo--controls">
+                <button type="button" class="btn btn-success btn-xs" @click="toggleItem" :disabled="complete === true"><span class="glyphicon glyphicon-ok-sign"></span>&nbsp;Done</button>
+                <button type="button" class="btn btn-warning btn-xs" @click="toggleItem" :disabled="complete === false"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;Not done</button>
+            </div>
+        </div>
     </li>
 </template>
 <script>
@@ -13,19 +25,32 @@ const TodoItem = {
     props: ['id', 'text', 'complete'],
     data() {
         return {
-            isComplete: this.complete
+            isComplete: this.complete,
+            editing: false,
+            itemText: this.text
         }
     },
     methods: {
         removeItem: function() {
             this.$emit('removeItem');
+        },
+        toggleItem: function() {
+            this.$emit('toggleComplete');
+        },
+        toggleEdit: function() {
+            this.editing = !this.editing;
+        },
+        editItemText: function() {
+            this.$emit('changeItemText', {id: this.id, text: this.itemText});
+            this.toggleEdit();
         }
-    },
-    watch: {
-         isComplete: function(val) {
-             this.$emit('onComplete');
-         }
-     }
+        
+     }//,
+    // watch: {
+    //      isComplete: function(val) {
+    //          this.$emit('onComplete');
+    //      }
+    //  }
 }
 
 export default TodoItem;
@@ -33,16 +58,51 @@ export default TodoItem;
 <style type="sass" scoped>
 ul, li {
     list-style-type:none;
-    color: red;
-    cursor:pointer;
+    margin-top: 8px;
 }
 
-label {
-    cursor:pointer;
+.todo {
+    width: 400px;
+    border: solid 1px #CFD8DC;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 0 auto;
+    min-height: 80px;
 }
 
-li.complete {
+.todo.complete {
+    background-color: #66bb6a;    
+}
+
+.todo--label {
+    text-align: left;
+    padding: 0 0 10px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.todo.complete > .todo--label {
     text-decoration: line-through;
-    color: green;
+    font-style: italic;
+    color: #78909C;
 }
+
+.todo--controls {
+    float: left;
+    width: 100%;
+    clear: both;
+}
+
+.todo--remove {
+    float: right;
+    margin-right: 10px;
+    width: 60px;
+}
+
+.form-control--narrow {
+    width: 75%;
+    display: inline-block;
+}
+
 </style>

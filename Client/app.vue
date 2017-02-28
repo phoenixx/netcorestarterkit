@@ -1,16 +1,42 @@
 <template>
-    <div id="vapp">
-        <h1>{{msg}}</h1>
-        <h2>{{completeItems}} / {{items.length}} completed ({{percentComplete}}%{{completeMessage}})</h2>
-        <p>
-            <input type="text" v-model="itemText" v-on:keyup.enter="addItem()"/>
-            <button type="button" @click="addItem()" :disabled="addDisabled">Add item</button>
-        </p>
-        <p>
-            <ul v-for="item in items">
-                <todo-item :id="item.id" :text="item.text" :complete="item.complete" v-on:onComplete="markComplete(item)" v-on:removeItem="removeItem(item)"></todo-item>
-            </ul>
-        </p>
+    <div id="vapp" class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>{{msg}}</h1>
+            <h2>{{completeItems}} / {{items.length}} completed ({{percentComplete}}%{{completeMessage}})</h2>
+            <form class="form-inline" v-on:submit.prevent>
+                <div class="form-group">
+                    <input type="text" class="form-control" v-model="itemText" v-on:keyup.enter="addItem()" placeholder="New item..."/>
+                </div>
+                <button type="button" class="btn btn-primary" @click.prevent="addItem()" :disabled="addDisabled">Add item</button>
+            </form>
+            <div class="controls">
+                <button type="button" class="btn btn-sm" @click="completeAll()" :disabled="items.length === 0" :class="percentComplete < 100 ? 'btn-success' : 'btn-warning'">
+                    <span class="glyphicon glyphicon-ok-sign"></span>&nbsp;
+                    <span v-if="percentComplete < 100">
+                        Mark all complete
+                    </span>
+                    <span v-else>
+                        Mark all incomplete
+                    </span>
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" @click="removeAll()" :disabled="items.length === 0">
+                    <span class="glyphicon glyphicon-remove-sign"></span>&nbsp;
+                    Remove all
+                </button>
+            </div>
+            <p>
+                <ul v-for="item in items" :key="item.id">
+                    <todo-item 
+                        :id="item.id"
+                        :text="item.text"
+                        :complete="item.complete"
+                        v-on:toggleComplete="markComplete(item)"
+                        v-on:onComplete="markComplete(item)"
+                        v-on:removeItem="removeItem(item)"
+                        v-on:changeItemText="changeItemText"></todo-item>
+                </ul>
+            </p>
+        </div>
     </div>
 </template>
 
@@ -24,13 +50,13 @@ const App = {
     name: 'app',
     data() {
         return {
-            msg: 'Todo Simple',
+            msg: 'Vue.js todo list',
             itemText: '',
             items: []
         }
     },
     mounted: function() {
-        const url = "/todos/5";
+        const url = "/todos";
         fetch(url)
             .then((response) => {
                 return response.json();
@@ -69,19 +95,26 @@ const App = {
     },
     methods: {
         markComplete: function(item) {
-            let thisItem = this.items.filter((i) => {
-                return i.id === item.id;
-            });
-            if (thisItem.length !== 1) {
-                console.warn("Nowt found.");
-            } else {
-                thisItem[0].complete = !thisItem[0].complete;
+            item.complete = !item.complete;
+        },
+        completeAll: function() {
+            for (let item of this.items) {
+                item.complete = !item.complete;
             }
+        },
+        removeAll: function() {
+            this.items = [];
         },
         removeItem: function(item) {
             this.items = this.items.filter((i) => {
                 return i.id !== item.id;
             });
+        },
+        changeItemText: function(item) {
+            const thisItem = this.items.filter((i) => {
+                return i.id === item.id;
+            });
+            thisItem[0].text = item.text;
         },
         addItem: function() {
             if (this.addDisabled) return;
@@ -110,7 +143,8 @@ const App = {
 
 export default App;
 </script>
-<style lang="scss">
+
+<style lang="scss" >
 #vapp {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -118,5 +152,8 @@ export default App;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.controls {
+    padding: 10px;
 }
 </style>

@@ -10,13 +10,16 @@ namespace NetCoreApp.Controllers
             return View("~/Views/Home/Index.cshtml");
         }
 
-        [Route("todos/{limit:int?}")]
+        [Route("todos")]
         public IActionResult GetTodos(int limit = 5) {
-            var todos = new List<TodoItem>();
-
-            for (var i = 0; i < limit; ++i) {
-                todos.Add(new TodoItem($"Item {i}"));
-            }
+            var todos = new List<TodoItem>() {
+                new TodoItem("Feed the dog"),
+                new TodoItem("Fix all the things"),
+                new TodoItem("Clean the car"),
+                new TodoItem("Read a book"),
+                new TodoItem("Sleep")
+            };
+           
 
             return Json(todos);
         }
