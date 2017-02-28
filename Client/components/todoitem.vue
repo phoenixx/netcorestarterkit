@@ -4,15 +4,21 @@
             <input type="checkbox" v-model="isComplete"/>
             {{text}}
         </label>
+        <button type="button" @click="removeItem">Remove</button>
     </li>
 </template>
 <script>
 const TodoItem = {
     name: 'todoitem',
-    props: ['id', 'text', 'complete', 'onComplete'],
+    props: ['id', 'text', 'complete'],
     data() {
         return {
             isComplete: this.complete
+        }
+    },
+    methods: {
+        removeItem: function() {
+            this.$emit('removeItem');
         }
     },
     watch: {

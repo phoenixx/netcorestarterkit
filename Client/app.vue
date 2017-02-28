@@ -8,7 +8,7 @@
         </p>
         <p>
             <ul v-for="item in items">
-                <todo-item :id="item.id" :text="item.text" :complete="item.complete" v-on:onComplete="markComplete(item)"></todo-item>
+                <todo-item :id="item.id" :text="item.text" :complete="item.complete" v-on:onComplete="markComplete(item)" v-on:removeItem="removeItem(item)"></todo-item>
             </ul>
         </p>
     </div>
@@ -18,35 +18,27 @@
 import TodoItem from './components/todoitem.vue';
 import uuidV4 from 'uuid/v4'
 import capitalize from 'lodash/capitalize';
+import fetch from 'isomorphic-fetch';
+
 const App = {
     name: 'app',
     data() {
         return {
             msg: 'Todo Simple',
             itemText: '',
-            items: [
-                {
-                    id: uuidV4(),
-                    text: "Feed dog",
-                    complete: false
-                },
-                {
-                    id: uuidV4(),
-                    text: "Sleep",
-                    complete: false
-                },
-                {
-                    id: uuidV4(),
-                    text: "Washing up",
-                    complete: false
-                },
-                {
-                    id: uuidV4(),
-                    text: "Get bread",
-                    complete: false
-                }
-            ]
+            items: []
         }
+    },
+    mounted: function() {
+        const url = "/todos/5";
+        fetch(url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((json) => {
+                console.log(json);
+                this.items = json;
+            });
     },
     computed: {
         addDisabled: function() {
@@ -61,6 +53,7 @@ const App = {
         percentComplete: function() {
             const items = this.items.length;
             const done = this.completeItems;
+            if (isNaN(items) || isNaN(done) || items === 0) return 0;
             return Math.round(((done / items) * 100),2);
         },
         completeMessage: function() {
@@ -85,17 +78,31 @@ const App = {
                 thisItem[0].complete = !thisItem[0].complete;
             }
         },
+        removeItem: function(item) {
+            this.items = this.items.filter((i) => {
+                return i.id !== item.id;
+            });
+        },
         addItem: function() {
             if (this.addDisabled) return;
             if (!this.itemText || this.itemText.length === 0) {
                 alert("nope");
             } else {
-                this.items.push({
-                    id: uuidV4(),
-                    text: capitalize(this.itemText),
-                    complete: false
+
+                const matches = this.items.filter((i) => {
+                    return i.text === capitalize(this.itemText);
                 });
-                this.itemText = '';
+
+                if (matches.length > 0) {
+                    alert("This item already exists!");
+                } else {
+                    this.items.push({
+                        id: uuidV4(),
+                        text: capitalize(this.itemText),
+                        complete: false
+                    });
+                    this.itemText = '';
+                }
             }
         }
     }
