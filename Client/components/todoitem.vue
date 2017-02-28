@@ -6,15 +6,15 @@
                 {{text}}
                 </span>
                 <span v-if="editing">
-                    <input type="text" class="form-control form-control--narrow" @change="editItemText" v-model="itemText">
+                    <input type="text" class="form-control form-control--narrow" @change="editItemText" v-model="itemText" @keyup.enter.esc="editing = false">
                 </span>
                 <span class="todo--remove">
-                    <button type="button" class="btn btn-danger btn-xs" @click="removeItem"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;Remove</button>
+                    <button type="button" class="btn btn-danger btn-xs" @click="removeItem" :disabled="editing === true"><span class="glyphicon glyphicon-minus-sign"></span>&nbsp;Remove</button>
                 </span>
             </div>
             <div class="todo--controls">
-                <button type="button" class="btn btn-success btn-xs" @click="toggleItem" :disabled="complete === true"><span class="glyphicon glyphicon-ok-sign"></span>&nbsp;Done</button>
-                <button type="button" class="btn btn-warning btn-xs" @click="toggleItem" :disabled="complete === false"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;Not done</button>
+                <button type="button" class="btn btn-success btn-xs" @click="toggleItem" :disabled="complete === true || editing === true"><span class="glyphicon glyphicon-ok-sign"></span>&nbsp;Done</button>
+                <button type="button" class="btn btn-warning btn-xs" @click="toggleItem" :disabled="complete === false || editing === true"><span class="glyphicon glyphicon-remove-sign"></span>&nbsp;Not done</button>
             </div>
         </div>
     </li>
@@ -38,6 +38,7 @@ const TodoItem = {
             this.$emit('toggleComplete');
         },
         toggleEdit: function() {
+            if (this.complete === true) return; //don't allow editing completed
             this.editing = !this.editing;
         },
         editItemText: function() {
@@ -65,13 +66,13 @@ ul, li {
     width: 400px;
     border: solid 1px #CFD8DC;
     padding: 10px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     margin: 0 auto;
     min-height: 80px;
 }
 
 .todo.complete {
-    background-color: #66bb6a;    
+    background-color: #81C784;    
 }
 
 .todo--label {
