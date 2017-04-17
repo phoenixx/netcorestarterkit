@@ -34,7 +34,7 @@
   <ItemGroup>
       <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
-  <Target Name="PreCompile" BeforeTargets="Build">
+  <!--<Target Name="PreCompile" BeforeTargets="Build">
     <Exec Command="preCompile.bat" />
   </Target>
   <Target Name="PrePublish" BeforeTargets="Publish">
@@ -42,5 +42,5 @@
   </Target>
   <Target Name="PostPublish" AfterTargets="Publish">
     <Exec Command="postPublish.bat" />
-  </Target>
+  </Target>-->
 </Project>
